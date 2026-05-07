@@ -369,21 +369,71 @@
     footer a { color: var(--accent); }
     footer a:hover { color: #004d6e; }
 
+    /* ── Mobile notice bar (hidden by default, shown on mobile) ── */
+    .mobile-notice {
+      display: none;
+      position: fixed;
+      bottom: 16px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: calc(100% - 32px);
+      background: #f3f4f6;
+      border: 1px solid #374151;
+      color: #6b7280;
+      font-size: 12px;
+      line-height: 1.5;
+      padding: 10px 14px;
+      gap: 10px;
+      align-items: center;
+      border-radius: var(--radius-pill);
+      box-shadow: 0 2px 12px rgba(0,0,0,0.10);
+      z-index: 999;
+      animation: slideUp 0.4s ease;
+    }
+    .mobile-notice-text { flex: 1; }
+    .mobile-notice-close {
+      background: none;
+      border: none;
+      color: #6b7280;
+      cursor: pointer;
+      padding: 2px;
+      flex-shrink: 0;
+      line-height: 0;
+    }
+
     /* ── Responsive ── */
     @media (max-width: 768px) {
-      .project-grid { grid-template-columns: 1fr; }
+      .project-grid  { grid-template-columns: 1fr; }
       .skills-grid   { grid-template-columns: 1fr; }
       .hero h1       { font-size: 40px; }
       .container     { padding: 0 20px; }
+      .card-link     { display: none; }
+      .mobile-notice { display: flex; }
+      .float-banner  { display: none; }
+      .desktop-only  { display: none; }
     }
     @media (max-width: 480px) {
       .hero { padding: 48px 0 40px; }
       .cta-buttons { flex-direction: column; align-items: center; }
+      .hero-tagline { font-size: 15px; }
+      .card-body { padding: 16px; }
+      .about-section { padding: 32px 0; }
+      .projects-section { padding: 32px 0 48px; }
     }
   </style>
 </head>
 
 <body>
+
+  <!-- ── Mobile notice (hidden on desktop) ── -->
+  <div class="mobile-notice" id="mobileNotice">
+    <div class="mobile-notice-text">
+      Best viewed on desktop — open this URL in a desktop browser for the full experience.
+    </div>
+    <button class="mobile-notice-close" onclick="document.getElementById('mobileNotice').style.display='none'" aria-label="Dismiss">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+    </button>
+  </div>
 
   <!-- ── Hero ── -->
   <section class="hero">
@@ -404,7 +454,7 @@
           <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
           LinkedIn
         </a>
-        <a href="https://sach8128.wixsite.com/sachinux" target="_blank" class="pill-link secondary">
+        <a href="https://sach8128.wixsite.com/sachinux" target="_blank" class="pill-link secondary desktop-only">
           <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
           Full Portfolio
         </a>
@@ -689,6 +739,9 @@
       transition: all 0.2s;
     }
     .float-banner-cta:hover { background: var(--accent); color: #fff; text-decoration: none; }
+    @media (max-width: 768px) {
+      .float-banner { display: none; }
+    }
     @media (max-width: 600px) {
       .float-banner { flex-wrap: wrap; border-radius: 16px; bottom: 16px; gap: 10px; }
       .float-banner-name { border-right: none; padding-right: 0; }
