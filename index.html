@@ -1,0 +1,702 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Sachin Gupta — UX Portfolio</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+
+  <style>
+    /* ── Design tokens ── */
+    :root {
+      --bg:            #fafaf9;
+      --surface:       #ffffff;
+      --border:        #e2e8f0;
+      --text:          #0d1b2a;
+      --text-muted:    #64748b;
+      --accent:        #00597f;
+      --accent-light:  #d4eef5;
+      --hero-bg:       #0d1b2a;
+      --font:          'Space Grotesk', -apple-system, sans-serif;
+      --display:       'Space Grotesk', -apple-system, sans-serif;
+      --radius:        16px;
+      --radius-pill:   100px;
+      --shadow:        0 2px 16px rgba(13, 27, 42, 0.08);
+      --shadow-hover:  0 8px 32px rgba(13, 27, 42, 0.16);
+      --max-w:         1100px;
+      --transition:    0.25s ease;
+    }
+
+    /* ── Reset ── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: var(--font);
+      background: var(--bg);
+      color: var(--text);
+      font-size: 15px;
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+    }
+    a { color: var(--accent); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+    ul { list-style: none; }
+
+    /* ── Layout ── */
+    .container { max-width: var(--max-w); margin: 0 auto; padding: 0 32px; }
+
+    /* ── Body bottom padding for fixed banner ── */
+    body { padding-bottom: 72px; }
+
+    /* ── Hero ── */
+    .hero {
+      background: #ffffff;
+      padding: 72px 0 64px;
+      border-bottom: 1px solid var(--border);
+    }
+    .hero-eyebrow {
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 16px;
+    }
+    .hero h1 {
+      font-family: var(--font);
+      font-size: clamp(44px, 6vw, 72px);
+      font-weight: 700;
+      letter-spacing: -0.03em;
+      line-height: 1.0;
+      margin-bottom: 18px;
+      color: var(--text);
+    }
+    .hero-tagline {
+      font-size: 17px;
+      color: var(--text-muted);
+      font-style: italic;
+      margin-bottom: 14px;
+      letter-spacing: 0.01em;
+    }
+    .hero-sub {
+      font-size: 14px;
+      color: var(--text-muted);
+      margin-bottom: 32px;
+      max-width: 480px;
+      line-height: 1.65;
+    }
+    .hero-links {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+    .pill-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 8px 18px;
+      border-radius: var(--radius-pill);
+      font-size: 13px;
+      font-weight: 500;
+      transition: all var(--transition);
+      letter-spacing: 0.01em;
+    }
+    .pill-link.primary {
+      background: var(--accent);
+      color: #ffffff;
+    }
+    .pill-link.primary:hover { background: #004d6e; text-decoration: none; }
+    .pill-link.secondary {
+      background: var(--bg);
+      color: var(--text);
+      border: 1px solid var(--border);
+    }
+    .pill-link.secondary:hover { border-color: var(--accent); color: var(--accent); background: var(--accent-light); text-decoration: none; }
+
+    /* ── About ── */
+    .about-section {
+      padding: 48px 0;
+      border-bottom: 1px solid var(--border);
+    }
+    .section-label {
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      margin-bottom: 20px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .section-label::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: var(--border);
+    }
+    .about-compact p { color: var(--text); font-size: 16px; line-height: 1.65; max-width: 680px; }
+    .about-detail-content { padding-top: 8px; }
+    .about-detail-content p { color: var(--text); margin-bottom: 16px; font-size: 15px; line-height: 1.7; max-width: 680px; }
+    .skills-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 28px;
+      margin-top: 24px;
+    }
+    .skill-group h4 {
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      margin-bottom: 10px;
+    }
+    .skill-tags { display: flex; flex-wrap: wrap; gap: 6px; }
+    .skill-tag {
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-pill);
+      padding: 4px 10px;
+      font-size: 12px;
+      font-weight: 500;
+      color: var(--text);
+    }
+
+    /* ── Projects ── */
+    .projects-section { padding: 48px 0 64px; }
+
+    .project-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+      align-items: start;
+    }
+
+    /* ── Project Card ── */
+    .project-card {
+      background: var(--surface);
+      border: 1px solid #c8d0da;
+      border-radius: var(--radius);
+      overflow: hidden;
+      box-shadow: 0 4px 20px rgba(13, 27, 42, 0.10);
+      transition: box-shadow var(--transition), transform var(--transition);
+      display: flex;
+      flex-direction: column;
+    }
+    .project-card:hover {
+      box-shadow: 0 10px 36px rgba(13, 27, 42, 0.18);
+      transform: translateY(-3px);
+    }
+    .card-header {
+      height: 112px;
+      width: 100%;
+      position: relative;
+      display: flex;
+      align-items: flex-end;
+      padding: 16px 20px;
+    }
+    .card-header.blue   { background: linear-gradient(135deg, #0d1b2a 0%, #1e40af 55%, #3b82f6 100%); }
+    .card-header.red    { background: linear-gradient(135deg, #3d0000 0%, #991b1b 55%, #ef4444 100%); }
+    .card-header.purple { background: linear-gradient(135deg, #1e1b4b 0%, #5b21b6 55%, #7c3aed 100%); }
+
+    /* Explicit fallback for card 2 */
+    #card-terra {
+      background: #ffffff;
+      border: 1px solid #c8d0da;
+      border-radius: 16px;
+      overflow: hidden;
+      box-shadow: 0 4px 20px rgba(13, 27, 42, 0.10);
+      display: flex;
+      flex-direction: column;
+    }
+    .card-header-num {
+      font-family: var(--display);
+      font-size: 48px;
+      font-weight: 400;
+      color: rgba(255, 255, 255, 0.15);
+      line-height: 1;
+      position: absolute;
+      right: 16px;
+      bottom: 8px;
+      letter-spacing: -0.02em;
+    }
+    .card-header-tag {
+      font-size: 10px;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: rgba(255, 255, 255, 0.6);
+      background: rgba(255,255,255,0.1);
+      border: 1px solid rgba(255,255,255,0.15);
+      padding: 3px 8px;
+      border-radius: var(--radius-pill);
+    }
+
+    .card-body { padding: 20px; flex: 1; display: flex; flex-direction: column; }
+
+    .card-title {
+      font-family: var(--display);
+      font-size: 18px;
+      font-weight: 600;
+      letter-spacing: -0.01em;
+      margin-bottom: 6px;
+      color: var(--text);
+      line-height: 1.2;
+    }
+    .card-role {
+      display: inline-block;
+      background: var(--accent-light);
+      color: var(--accent);
+      font-size: 10px;
+      font-weight: 600;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      padding: 3px 8px;
+      border-radius: var(--radius-pill);
+      margin-bottom: 14px;
+    }
+    .card-problem {
+      font-size: 13px;
+      color: var(--text-muted);
+      margin-bottom: 14px;
+      line-height: 1.55;
+    }
+    .card-outcomes { margin-bottom: 0; }
+    .card-outcomes li {
+      font-size: 13px;
+      color: var(--text);
+      padding: 4px 0;
+      padding-left: 18px;
+      position: relative;
+      line-height: 1.45;
+    }
+    .card-outcomes li::before {
+      content: '\2192';
+      position: absolute;
+      left: 0;
+      color: var(--accent);
+      font-size: 12px;
+    }
+
+    /* Detail expansion per card */
+    .card-detail {
+      border-top: 1px solid var(--border);
+      margin-top: 16px;
+      padding-top: 16px;
+    }
+    .detail-block { margin-bottom: 14px; }
+    .detail-block:last-child { margin-bottom: 0; }
+    .detail-label {
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      margin-bottom: 7px;
+    }
+    .process-steps { padding: 0; counter-reset: step; list-style: none; }
+    .process-steps li {
+      font-size: 13px;
+      color: var(--text);
+      padding: 4px 0 4px 22px;
+      position: relative;
+      counter-increment: step;
+      line-height: 1.45;
+    }
+    .process-steps li::before {
+      content: counter(step);
+      position: absolute;
+      left: 0;
+      top: 5px;
+      width: 15px;
+      height: 15px;
+      background: var(--accent);
+      color: #fff;
+      font-size: 9px;
+      font-weight: 700;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .detail-text { font-size: 13px; color: var(--text); line-height: 1.65; }
+    .card-link {
+      margin-top: auto;
+      padding-top: 16px;
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 0.04em;
+      color: var(--accent);
+      text-transform: uppercase;
+    }
+    .card-link:hover { text-decoration: underline; }
+
+    /* ── Resume CTA ── */
+    .cta-section {
+      background: var(--bg);
+      border-top: 1px solid var(--border);
+      padding: 64px 0;
+      text-align: center;
+    }
+    .cta-section h2 {
+      font-family: var(--display);
+      font-size: clamp(28px, 4vw, 42px);
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      margin-bottom: 10px;
+      color: var(--text);
+    }
+    .cta-section p {
+      color: var(--text-muted);
+      margin-bottom: 28px;
+      font-size: 14px;
+      line-height: 1.65;
+    }
+    .cta-buttons { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
+
+    /* ── Footer ── */
+    footer {
+      border-top: 1px solid var(--border);
+      background: #ffffff;
+      padding: 20px 0;
+      text-align: center;
+      font-size: 12px;
+      color: var(--text-muted);
+    }
+    footer a { color: var(--accent); }
+    footer a:hover { color: #004d6e; }
+
+    /* ── Responsive ── */
+    @media (max-width: 768px) {
+      .project-grid { grid-template-columns: 1fr; }
+      .skills-grid   { grid-template-columns: 1fr; }
+      .hero h1       { font-size: 40px; }
+      .container     { padding: 0 20px; }
+    }
+    @media (max-width: 480px) {
+      .hero { padding: 48px 0 40px; }
+      .cta-buttons { flex-direction: column; align-items: center; }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- ── Hero ── -->
+  <section class="hero">
+    <div class="container">
+      <p class="hero-eyebrow">UX Portfolio</p>
+      <h1>I am Sachin Gupta</h1>
+      <p class="hero-tagline">Evolving with technology to design for both people and intelligent systems.</p>
+      <p class="hero-tagline" style="margin-top: -10px;">A UX Expert for Enterprise tools with 4+ YOE</p>
+      <p class="hero-sub">
+        Experience Designer at SAP Labs, specialising in AI-enabled enterprise workflows, cloud tools, and no-code platforms.
+      </p>
+      <div class="hero-links">
+        <a href="https://f128b2fe-7de7-4e22-a4e7-a969e8fa5e58.filesusr.com/ugd/3b3276_e56d758b899943e0a5efcced0f6c479d.pdf" target="_blank" class="pill-link primary">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="12" y1="18" x2="12" y2="12"/><line x1="9" y1="15" x2="15" y2="15"/></svg>
+          View Resume
+        </a>
+        <a href="https://www.linkedin.com/in/guptasachinr/" target="_blank" class="pill-link secondary">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
+          LinkedIn
+        </a>
+        <a href="https://sach8128.wixsite.com/sachinux" target="_blank" class="pill-link secondary">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+          Full Portfolio
+        </a>
+        <a href="tel:7359003310" class="pill-link secondary">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.71 3.41 2 2 0 0 1 3.68 1.25h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.91a16 16 0 0 0 6 6l1.02-1.02a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 21.73 16z"/></svg>
+          +91 7359003310
+        </a>
+        <a href="mailto:sach8128@gmail.com" class="pill-link secondary">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+          Email
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── About ── -->
+  <section class="about-section">
+    <div class="container">
+      <p class="section-label">About</p>
+      <div class="about-detail-content">
+          <p>I'm originally from Vapi, Gujarat, India. Growing up by the sea, I absorbed the nature of water — depth, movement, and quiet strength. That environment shaped my ambition: to continuously evolve and contribute toward making the world better, design by design.</p>
+          <p>Engineering has always been my foundation. But my curiosity about human behavior, society, and meaning led me toward design — where logic meets empathy and systems meet people. That shift gave me a rare lens: I think in systems and I design for humans.</p>
+          <p>Currently at SAP Labs, I work on AI-enabled enterprise workflows across SAP Analytics Cloud, Datasphere, and BDC Content Network — making complex tools feel inevitable rather than overwhelming.</p>
+          <blockquote style="border-left: 3px solid var(--accent); padding: 10px 16px; margin: 20px 0; color: var(--text-muted); font-style: italic; font-size: 14px; background: var(--accent-light); border-radius: 0 6px 6px 0;">
+            In my creative space, I am an artist at heart — I play video games, attend design events, spend time in nature, explore food cultures, and travel whenever I can. Beyond design, I practice yoga and explore transcendental philosophy, seeking awareness, clarity, and balance in both life and work.
+          </blockquote>
+          <div class="skills-grid">
+            <div class="skill-group">
+              <h4>Core Skills</h4>
+              <div class="skill-tags">
+                <span class="skill-tag">UX Assessment</span>
+                <span class="skill-tag">User Research</span>
+                <span class="skill-tag">Process Flows</span>
+                <span class="skill-tag">Personas</span>
+                <span class="skill-tag">Journey Mapping</span>
+                <span class="skill-tag">AI Prototyping</span>
+                <span class="skill-tag">Stakeholder Mgmt</span>
+              </div>
+            </div>
+            <div class="skill-group">
+              <h4>Tools</h4>
+              <div class="skill-tags">
+                <span class="skill-tag">Figma</span>
+                <span class="skill-tag">Miro</span>
+                <span class="skill-tag">Blender</span>
+                <span class="skill-tag">Cursor</span>
+                <span class="skill-tag">Lovable</span>
+                <span class="skill-tag">Claude API</span>
+              </div>
+            </div>
+          </div>
+        </div>
+    </div>
+  </section>
+
+  <!-- ── Projects ── -->
+  <section class="projects-section">
+    <div class="container">
+      <p class="section-label">Selected Work</p>
+
+      <div class="project-grid">
+
+        <!-- Card 1: Vishleshan -->
+        <div class="project-card">
+          <div class="card-header blue">
+            <span class="card-header-tag">AI &amp; Data</span>
+            <span class="card-header-num">01</span>
+          </div>
+          <div class="card-body">
+            <h3 class="card-title">Vishleshan</h3>
+            <span class="card-role">UX Researcher &amp; Designer</span>
+            <p class="card-problem">AI data-analysis tools overwhelm non-expert teams — code-first, no guidance, weak explainability.</p>
+
+            <div class="card-detail">
+              <div class="detail-block">
+                <p class="detail-label">Problem</p>
+                <p class="detail-text">AI data-analysis tools make it difficult for non-expert teams to turn raw data into trustworthy, repeatable decisions — driven by code-first experiences, poor guidance, weak explainability, and workflow disruptions.</p>
+              </div>
+              <div class="detail-block">
+                <p class="detail-label">Process</p>
+                <ol class="process-steps">
+                  <li>AI market research across verticals</li>
+                  <li>Comparative UX assessment of 4 tools</li>
+                  <li>Interaction layer analysis</li>
+                  <li>Gap identification &amp; drawback documentation</li>
+                  <li>Design philosophy formulation</li>
+                  <li>Ideation &amp; new product vision</li>
+                </ol>
+              </div>
+              <div class="detail-block">
+                <p class="detail-label">Outcomes</p>
+                <ul class="card-outcomes">
+                  <li>5 core findings: chat prevalence, explainability gaps, human-in-the-loop needs</li>
+                  <li>Documented emerging UX patterns across AI products</li>
+                  <li>Foundation for future Vishleshan platform design</li>
+                </ul>
+              </div>
+            </div>
+
+            <a href="https://sach8128.wixsite.com/sachinux/ai-enabled-data-analysis" target="_blank" class="card-link">View case study →</a>
+          </div>
+        </div>
+
+        <!-- Card 2: Terra Studio -->
+        <div class="project-card" id="card-terra" style="background:#ffffff;border:1px solid #c8d0da;border-radius:16px;overflow:hidden;box-shadow:0 4px 20px rgba(13,27,42,0.10);display:flex;flex-direction:column;">
+          <div class="card-header red" style="background:linear-gradient(135deg,#3d0000 0%,#991b1b 55%,#ef4444 100%);height:112px;width:100%;position:relative;display:flex;align-items:flex-end;padding:16px 20px;">
+            <span class="card-header-tag">No-Code Tools</span>
+            <span class="card-header-num">02</span>
+          </div>
+          <div class="card-body" style="padding:20px;flex:1;display:flex;flex-direction:column;">
+            <h3 class="card-title">Terra Studio</h3>
+            <span class="card-role">UX Designer</span>
+            <p class="card-problem">Aspiring game designers blocked by coding requirements, fragmented assets, and week-long prototyping cycles.</p>
+            <div class="card-detail">
+              <div class="detail-block">
+                <p class="detail-label">Timeline</p>
+                <p class="detail-text">Sep &ndash; Dec 2023 (3 months)</p>
+              </div>
+              <div class="detail-block">
+                <p class="detail-label">Problem</p>
+                <p class="detail-text">Three compounding barriers: coding as a separate skill investment, fragmented asset sourcing with no affordable unified platform, and multi-week ideation-to-playable cycles that killed creative momentum.</p>
+              </div>
+              <div class="detail-block">
+                <p class="detail-label">Process</p>
+                <ol class="process-steps">
+                  <li>User-tested no-code mechanic selection</li>
+                  <li>Designed game mechanics template library</li>
+                  <li>Built UX for broadcast, preview &amp; gizmo controls</li>
+                  <li>Curated asset library (models, skyboxes, lighting)</li>
+                </ol>
+              </div>
+              <div class="detail-block">
+                <p class="detail-label">Outcomes</p>
+                <ul class="card-outcomes">
+                  <li>60&ndash;70% faster idea-to-prototype cycles</li>
+                  <li>Weeks to days for playable prototypes</li>
+                  <li>Evolved into &ldquo;Flow: A Co-Pilot for Unity&rdquo; post-AI shift</li>
+                </ul>
+              </div>
+            </div>
+            <a href="https://sach8128.wixsite.com/sachinux/no-code-game-design-tool" target="_blank" class="card-link">View case study &#8594;</a>
+          </div>
+        </div>
+
+        <!-- Card 3: Cloud Migration -->
+        <div class="project-card">
+          <div class="card-header purple">
+            <span class="card-header-tag">Enterprise Cloud</span>
+            <span class="card-header-num">03</span>
+          </div>
+          <div class="card-body">
+            <h3 class="card-title">APLM Cloud Migration</h3>
+            <span class="card-role">Sole UX Designer</span>
+            <p class="card-problem">Multiple disconnected tools for data discovery, migration planning, and disposition — no unified workflow.</p>
+
+            <div class="card-detail">
+              <div class="detail-block">
+                <p class="detail-label">Timeline</p>
+                <p class="detail-text">4 months — end-to-end, sole UX ownership</p>
+              </div>
+              <div class="detail-block">
+                <p class="detail-label">Problem</p>
+                <p class="detail-text">The organisation relied on multiple disconnected tools for data discovery, migration planning, and disposition decisions. No unified workflow, no real-time visibility, heavy manual computation.</p>
+              </div>
+              <div class="detail-block">
+                <p class="detail-label">Process</p>
+                <ol class="process-steps">
+                  <li>Stakeholder identification &amp; persona development</li>
+                  <li>Heuristic evaluation &amp; UX audit</li>
+                  <li>User interviews &amp; questionnaire analysis</li>
+                  <li>Journey mapping &amp; persona finalisation</li>
+                  <li>Feature prioritisation workshop</li>
+                  <li>Wireframes with iterative stakeholder review</li>
+                  <li>UI component design &amp; visual style guide</li>
+                  <li>Prototype + developer handoff</li>
+                </ol>
+              </div>
+              <div class="detail-block">
+                <p class="detail-label">Outcomes</p>
+                <ul class="card-outcomes">
+                  <li>Single platform replacing 3+ disconnected tools</li>
+                  <li>Real-time assessment monitoring dashboard</li>
+                  <li>AI-bot recommendations reduce manual computation</li>
+                  <li>Event-based audit logging for full traceability</li>
+                </ul>
+              </div>
+            </div>
+
+            <a href="https://sach8128.wixsite.com/sachinux/cloud-migration" target="_blank" class="card-link">View case study →</a>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ── Resume CTA ── -->
+  <section class="cta-section" id="resume">
+    <div class="container">
+      <h2>Let's work together</h2>
+      <p>Open to UX roles in AI-assisted enterprise products, agentic systems design, and design-engineering hybrids.</p>
+      <div class="cta-buttons">
+        <a href="https://f128b2fe-7de7-4e22-a4e7-a969e8fa5e58.filesusr.com/ugd/3b3276_e56d758b899943e0a5efcced0f6c479d.pdf" target="_blank" class="pill-link primary" style="padding: 10px 24px; font-size: 14px;">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
+          Download Resume
+        </a>
+        <a href="mailto:sach8128@gmail.com" class="pill-link secondary" style="padding: 10px 24px; font-size: 14px;">
+          sach8128@gmail.com
+        </a>
+        <a href="https://www.linkedin.com/in/guptasachinr/" target="_blank" class="pill-link secondary" style="padding: 10px 24px; font-size: 14px;">
+          LinkedIn
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── Footer ── -->
+  <footer>
+    <div class="container">
+      &copy; Sachin Gupta &nbsp;&middot;&nbsp;
+      <a href="https://sach8128.wixsite.com/sachinux" target="_blank">Full Portfolio</a>
+      &nbsp;&middot;&nbsp; Built with Claude
+    </div>
+  </footer>
+
+  <!-- ── Persistent bottom bar ── -->
+  <div class="float-banner" id="floatBanner">
+    <span class="float-banner-name">Sachin Gupta</span>
+    <div class="float-banner-text">
+      This is a curated overview of my work — designed to be read in under 5 minutes. Full case studies, process depth, and visuals live on my portfolio.
+    </div>
+    <a href="https://sach8128.wixsite.com/sachinux" target="_blank" class="float-banner-cta">See full portfolio</a>
+  </div>
+
+  <style>
+    .float-banner {
+      position: fixed;
+      bottom: 24px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: #f3f4f6;
+      border: 1px solid #374151;
+      color: #6b7280;
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      padding: 12px 18px;
+      border-radius: var(--radius-pill);
+      box-shadow: 0 2px 12px rgba(0,0,0,0.07);
+      font-size: 12px;
+      line-height: 1.5;
+      max-width: 720px;
+      width: calc(100% - 48px);
+      z-index: 999;
+      animation: slideUp 0.5s ease;
+    }
+    @keyframes slideUp {
+      from { opacity: 0; transform: translateX(-50%) translateY(16px); }
+      to   { opacity: 1; transform: translateX(-50%) translateY(0); }
+    }
+    .float-banner-name {
+      font-family: var(--display);
+      font-size: 13px;
+      font-weight: 600;
+      color: #374151;
+      white-space: nowrap;
+      flex-shrink: 0;
+      padding-right: 16px;
+      border-right: 1px solid #d1d5db;
+    }
+    .float-banner-text { flex: 1; }
+    .float-banner-cta {
+      background: transparent;
+      color: var(--accent);
+      border: 1px solid var(--accent);
+      padding: 6px 14px;
+      border-radius: var(--radius-pill);
+      font-size: 11px;
+      font-weight: 600;
+      white-space: nowrap;
+      flex-shrink: 0;
+      transition: all 0.2s;
+    }
+    .float-banner-cta:hover { background: var(--accent); color: #fff; text-decoration: none; }
+    @media (max-width: 600px) {
+      .float-banner { flex-wrap: wrap; border-radius: 16px; bottom: 16px; gap: 10px; }
+      .float-banner-name { border-right: none; padding-right: 0; }
+    }
+  </style>
+
+  <script>
+    window.onload = function() {};
+  </script>
+
+</body>
+</html>
